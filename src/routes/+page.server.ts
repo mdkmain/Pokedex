@@ -1,6 +1,8 @@
 import type { PageServerLoad } from './$types';
 import { store } from '../stores';
 
+export const prerender = false;
+
 let data: {
 	count: number;
 	next: string;
@@ -21,7 +23,7 @@ export const _fetchAllPokemon = async () => {
 	data = await res.json();
 
 	store.setList(data.results);
-}
+};
 
 //load data
 export const load: PageServerLoad = async ({ url }) => {
