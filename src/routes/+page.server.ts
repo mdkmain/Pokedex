@@ -1,8 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { store } from '../stores';
 
-export const prerender = false;
-
 let data: {
 	count: number;
 	next: string;
