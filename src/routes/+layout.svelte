@@ -12,7 +12,7 @@
 	};
 </script>
 
-<div class="flex flex-col h-screen items-center w-auto bg-sky">
+<div class="flex flex-col h-auto items-center w-auto bg-sky">
 	<!-- TODO: calculate the correct vertical offset so this works on different sized screens -->
 	{#if !openDex}
 		<div

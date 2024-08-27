@@ -16,7 +16,7 @@
 </script>
 
 <div
-	class="flex flex-wrap h-dvh bg-white justify-center m-1"
+	class="flex flex-wrap h-full w-full justify-center"
 	style="background-image: url('https://media.istockphoto.com/id/480628083/vector/abstract-background.jpg?s=612x612&w=0&k=20&c=6DKrFHq4of1yUi2dLIsLbJLdEI4AJ1GUvTL35G4Q9io=');"
 >
 	{#if data}

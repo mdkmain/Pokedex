@@ -5,10 +5,10 @@
 
 @layer components {
 	.btn-primary {
-		@apply px-5 min-w-32 bg-blue-50 bg-opacity-50 text-black font-semibold rounded-lg shadow-md hover:bg-blue-200 hover:bg-opacity-50 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
+		@apply px-5 sm:min-w-32 bg-blue-50 bg-opacity-50 text-black font-semibold rounded-lg shadow-md hover:bg-blue-200 hover:bg-opacity-50 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
 	}
 	.pokemonText {
-		@apply text-white text-2xl font-PokemonGb;
+		@apply text-white text-xs sm:text-2xl font-PokemonGb;
 	}
 }
 

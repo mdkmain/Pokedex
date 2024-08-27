@@ -38,7 +38,7 @@
 </script>
 
 <div
-	class="flex flex-col justify-between align-middle border-[1px]-blue-950 p-3 w-[180px] max-h-[180px] h-[180px] rounded-3xl bg-neutral-100 bg-opacity-50 shadow-md hover:bg-cyan-200 hover:bg-opacity-50 transition-colors hover:shadow-xl hover:shadow-cyan-300"
+	class="flex flex-col justify-between align-middle border-[1px]-blue-950 p-3 w-[150px] h-[150px] sm:w-[180px] sm:h-[180px] sm:max-h-[180px] sm:max-w-[180px] rounded-3xl bg-neutral-100 bg-opacity-50 shadow-md hover:bg-cyan-200 hover:bg-opacity-50 transition-colors hover:shadow-xl hover:shadow-cyan-300"
 	draggable="false"
 >
 	{#key number}
