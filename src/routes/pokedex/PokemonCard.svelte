@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { scale } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
+	import { capitalizeFirstLetter } from '$lib/utils/capitalize';
 
 	export let number;
 	export let name;
@@ -54,8 +55,10 @@
 			draggable="false"
 		/>
 		<div class="flex w-full justify-between text-[18px] font-bold text-black">
-			<div class="font-PokemonGb text-xs">#{number}</div>
-			<div class="font-PokemonGb text-xs">{name}</div>
+			<div class="font-PokemonGb text-red-900 text-xs">#{number}</div>
+			<div class="font-PokemonGb text-[9px] sm:text-xs">
+				{capitalizeFirstLetter(name)}
+			</div>
 		</div>
 	{/key}
 </div>

@@ -64,7 +64,7 @@
 				<p class="pokemonText my-2">Weight: {pokemon.weight}</p>
 				<div class="flex">
 					{#each typeImageURLs as typeImage}
-						<img src={typeImage.url} alt={typeImage.name} class="w-24 sm:w-44 mr-2" />
+						<img src={typeImage.url} alt={typeImage.name} class="w-24 sm:w-40 mr-2" />
 					{/each}
 				</div>
 			</div>

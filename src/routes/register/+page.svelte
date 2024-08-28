@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import '../app.css';
-	import type { ActionData, SubmitFunction } from './$types.js';
+	import '../../app.css';
+	import type { ActionData, SubmitFunction } from '../pokedex/register/$types.js';
 
 	export let form: ActionData;
 
@@ -43,7 +43,7 @@
 			<input
 				id="email"
 				name="email"
-				class="inputField font-PokemonGb text-sm h-8 w-60 sm:w-auto shadow-lg"
+				class="font-PokemonGb text-sm h-8 w-60 px-2 sm:w-auto shadow-lg"
 				type="email"
 				placeholder="Your email"
 				value={form?.email ?? ''}
@@ -60,7 +60,7 @@
 			<input
 				id="password"
 				name="password"
-				class="inputField font-PokemonGb text-sm h-8 w-60 sm:w-auto shadow-lg"
+				class="font-PokemonGb text-sm h-8 w-60 px-2 sm:w-auto shadow-lg"
 				type="password"
 				placeholder="Your password"
 				required
@@ -71,16 +71,27 @@
 				{form?.errors?.password}
 			</span>
 		{/if}
+		<div class="w-2/3 flex flex-col sm:flex-row items-center justify-center sm:justify-between">
+			<label for="password" class="font-PokemonGb text-xs sm:text-base">Confirm Password</label>
+			<input
+				id="confirm"
+				name="confirm"
+				class="font-PokemonGb text-sm h-8 w-60 px-2 sm:w-auto shadow-lg"
+				type="password"
+				placeholder="Repeat your password"
+				required
+			/>
+		</div>
 		<div>
 			<button
 				class="button primary block btn-primary font-PokemonGb w-60 h-12 rounded-2xl"
 				disabled={loading}
 			>
-				{loading ? 'Loading' : 'Sign In'}
+				{loading ? 'Loading' : 'Register'}
 			</button>
 		</div>
 		<div class="font-PokemonGb flex justify-center text-[10px] sm:text-sm">
-			<a href="/register" class="text-center">Not a member? Register here.</a>
+			<a href="/" class="text-center">Already a member? Sign in.</a>
 		</div>
 	</form>
 </div>

@@ -23,6 +23,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
+		const confirm = formData.get('confirm') as string;
 
 		// Validate email format
 		const validEmail = /^[\w-\.+]+@([\w-]+\.)+[\w-]{2,8}$/.test(email);
@@ -35,10 +36,15 @@ export const actions: Actions = {
 			return fail(400, { errors: { password: 'Please enter your password' }, email });
 		}
 
+		if (password !== confirm) {
+			return fail(400, { errors: { confirm: 'Passwords do not match.' }, email });
+		}
+
 		// Attempt to sign in with email and password
-		const { error } = await supabase.auth.signInWithPassword({ email, password });
+		const { error } = await supabase.auth.signUp({ email, password });
 
 		if (error) {
+			console.log(error.message);
 			return fail(400, {
 				success: false,
 				email,
