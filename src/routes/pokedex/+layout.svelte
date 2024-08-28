@@ -7,6 +7,7 @@
 	import { fly, fade, slide } from 'svelte/transition';
 	import { cubicOut, linear } from 'svelte/easing';
 	import { goto } from '$app/navigation';
+	import { filteredStore, store } from '$lib/utils/stores';
 	import type { LayoutData } from './$types';
 	let openDex = false;
 	const toggleOpenDex = () => {
@@ -14,6 +15,7 @@
 	};
 
 	export let data: LayoutData;
+	let filterInput: string = '';
 
 	const signOut = async () => {
 		const { error } = await data.supabase.auth.signOut();
@@ -23,6 +25,15 @@
 		} else {
 			goto('/');
 		}
+	};
+
+	const setFilteredList = (value: string) => {
+		let filteredData = [];
+		store.subscribe((list) => {
+			filteredData = list.filter((poke) => poke.name.toLowerCase().includes(value.toLowerCase()) || poke.id.toString().includes(value));
+		})();
+
+		filteredStore.set(filteredData);
 	};
 </script>
 
@@ -76,12 +87,19 @@
 		>
 	{/if}
 	{#if openDex}
-		<div class="flex align-middle m-2">
-			<img src={pokeball} alt="Pokeball" class="h-12 w-auto pr-5" />
-			<p class="text-5xl font-bold text-blue-100">Pokedex</p>
+		<div class="flex flex-col w-full items-center justify-center bg-red-700">
+			<div class="flex align-middle m-2">
+				<img src={pokeball} alt="Pokeball" class="h-12 w-auto pr-5" />
+				<p class="text-5xl font-bold text-blue-100">Pokedex</p>
+			</div>
+			<button class="btn-primary" on:click={signOut}>Log out</button>
+			<input
+				type="text"
+				class="h-12 m-1 px-4 text-xl rounded-xl w-1/2"
+				bind:value={filterInput}
+				on:input={() => setFilteredList(filterInput)}
+			/>
 		</div>
-		<button class="btn-primary" on:click={signOut}>Log out</button>
-		<input type="text" class="h-12 m-1 px-4 text-xl rounded-xl w-1/2" />
 		<slot />
 	{/if}
 </div>

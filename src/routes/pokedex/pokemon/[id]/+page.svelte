@@ -29,10 +29,14 @@
 	$: extractTypes(pokemon.types);
 
 	const extractEnglishFlavourText = (textList: []) => {
+		if (textList.length === 0) return -1;
 		return textList.findIndex((entry) => entry.language.name === 'en');
 	};
-	const index = extractEnglishFlavourText(data.flavour.flavor_text_entries);
-	const flavourText = data.flavour.flavor_text_entries[index].flavor_text;
+	const index = extractEnglishFlavourText(data.flavour.flavor_text_entries ?? []);
+	const flavourText =
+		index !== -1
+			? data.flavour.flavor_text_entries[index].flavor_text
+			: 'This Pokemon has no flavourtext.';
 
 	const pokemonCry = pokemon.cries.latest;
 
@@ -54,7 +58,7 @@
 >
 	{#if data}
 		<div
-			class="flex flex-col sm:flex-row h-[70%] w-full border-gray-700 border-4 border-b-0 rounded-t-3xl"
+			class="flex flex-col sm:flex-row h-[70%] overflow-hidden w-full border-gray-700 border-4 border-b-0 rounded-t-3xl"
 		>
 			<!-- BASIC INFO AREA -->
 			<div class="flex flex-col text-left w-full sm:w-1/4 p-4 bg-black bg-opacity-40">
@@ -76,7 +80,7 @@
 				<img
 					src={pokemon.sprites.other['official-artwork'].front_default}
 					alt={pokemon.name}
-					class="w-full p-4 hover:animate-bounce"
+					class="w-full p-4 hover:animate-wiggle"
 					on:click={playAudio}
 					on:mouseenter={() => (showClickMe = true)}
 					on:mouseleave={() => (showClickMe = false)}
@@ -109,7 +113,9 @@
 		<div
 			class="h-[30%] w-full bg-blue-100 flex text-left p-2 sm:p-10 bg-opacity-80 border-gray-700 border-4 rounded-b-3xl"
 		>
-			<p class="pokemonText text-black text-base sm:text-3xl">{flavourText}</p>
+			<p class="pokemonText text-black text-base sm:text-3xl">
+				{flavourText}
+			</p>
 		</div>
 	{:else}
 		<p>Loading...</p>

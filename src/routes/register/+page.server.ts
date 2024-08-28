@@ -15,7 +15,6 @@ export const load: PageServerLoad = async ({ url, locals: { safeGetSession } }) 
 export const actions: Actions = {
 	default: async (event) => {
 		const {
-			url,
 			request,
 			locals: { supabase }
 		} = event;
@@ -26,7 +25,7 @@ export const actions: Actions = {
 		const confirm = formData.get('confirm') as string;
 
 		// Validate email format
-		const validEmail = /^[\w-\.+]+@([\w-]+\.)+[\w-]{2,8}$/.test(email);
+		const validEmail = /^[\w-.+]+@([\w-]+\.)+[\w-]{2,8}$/.test(email);
 		if (!validEmail) {
 			return fail(400, { errors: { email: 'Please enter a valid email address' }, email });
 		}
@@ -41,7 +40,13 @@ export const actions: Actions = {
 		}
 
 		// Attempt to sign in with email and password
-		const { error } = await supabase.auth.signUp({ email, password });
+		const { error } = await supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: 'http://pokedex-rw9t.vercel.app/pokedex'
+			}
+		});
 
 		if (error) {
 			console.log(error.message);

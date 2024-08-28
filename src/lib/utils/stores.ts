@@ -1,12 +1,10 @@
 import { writable } from 'svelte/store';
 
-const createPokeStore = () => {
-	const { subscribe, set } = writable({});
-
-	return {
-		subscribe,
-		setList: (list: []) => set(list)
-	};
+type Pokemon = {
+	id: number;
+	name: string;
 };
 
-export const store = createPokeStore();
+export const store = writable<Pokemon[]>([]);
+
+export const filteredStore = writable<Pokemon[]>([]);

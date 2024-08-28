@@ -11,10 +11,12 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 
 	const flavourTextResponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${params.id}`);
 
-	if (!flavourTextResponse.ok)
-		throw new Error(`Failed to fetch Pokémon flavour text: ${flavourTextResponse.statusText}`);
-
-	const flavour = await flavourTextResponse.json();
+	let flavour;
+	if (!flavourTextResponse.ok) {
+		flavour = [];
+	} else {
+		flavour = await flavourTextResponse.json();
+	}
 
 	return {
 		pokemon,

@@ -20,12 +20,12 @@
 			}
 		};
 
-		let imgNumber = number;
-		if (number > 1025) {
-			imgNumber = number + 8975;
-		}
+		// let imgNumber = number;
+		// if (number > 1025) {
+		// 	imgNumber = number + 8975;
+		// }
 
-		const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${imgNumber}.gif`;
+		const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${number}.gif`;
 
 		// Check if the GIF exists
 		const exists = await checkIfImageExists(url);
@@ -33,7 +33,7 @@
 			baseUrl = url;
 		} else {
 			// Return a fallback URL if the GIF does not exist
-			baseUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${imgNumber}.png`; // Replace with your actual fallback URL
+			baseUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${number}.png`; // Replace with your actual fallback URL
 		}
 	})();
 </script>
