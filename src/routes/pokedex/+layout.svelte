@@ -4,12 +4,19 @@
 	import PokedexTop from '$lib/images/PokedexScreenTop.svg';
 	import PokedexCenter from '$lib/images/PokedexScreenCenter.svg';
 	import PokedexBottom from '$lib/images/PokedexScreenBottom.svg';
-	import { fly, fade, slide } from 'svelte/transition';
+	import PokedexTopMobile from '$lib/images/PokedexMobileTop.svg';
+	import PokedexCenterMobile from '$lib/images/PokedexMobileCenter.svg';
+	import PokedexBottomMobile from '$lib/images/PokedexMobileBottom.svg';
+	import { fly, fade } from 'svelte/transition';
 	import { cubicOut, linear } from 'svelte/easing';
 	import { goto } from '$app/navigation';
 	import { filteredStore, store } from '$lib/utils/stores';
 	import type { LayoutData } from './$types';
 	let openDex = false;
+	let innerWidth = 0;
+	$: mobileCondition = innerWidth < 500;
+	let animationEnded = false;
+
 	const toggleOpenDex = () => {
 		openDex = !openDex;
 	};
@@ -30,18 +37,23 @@
 	const setFilteredList = (value: string) => {
 		let filteredData = [];
 		store.subscribe((list) => {
-			filteredData = list.filter((poke) => poke.name.toLowerCase().includes(value.toLowerCase()) || poke.id.toString().includes(value));
+			filteredData = list.filter(
+				(poke) =>
+					poke.name.toLowerCase().includes(value.toLowerCase()) ||
+					poke.id.toString().includes(value)
+			);
 		})();
 
 		filteredStore.set(filteredData);
 	};
 </script>
 
-<div class="flex flex-col h-auto items-center w-auto bg-sky">
-	<!-- TODO: calculate the correct vertical offset so this works on different sized screens -->
+<svelte:window bind:innerWidth />
+
+<div class="flex flex-col h-fit w-auto bg-sky">
 	{#if !openDex}
 		<div
-			class="absolute inset-0 flex items-start justify-center -top-24 z-40 select-none"
+			class={`absolute inset-0 flex h-1/3 w-full justify-center z-40 select-none ${mobileCondition ? 'm-auto items-center' : '-top-24 items-start'}`}
 			style={openDex ? `transform: translateY(-500)` : ''}
 			transition:fly={{
 				delay: 700,
@@ -50,21 +62,22 @@
 				y: -500,
 				opacity: 100
 			}}
+			on:animationend={() => (animationEnded = true)}
 		>
-			<img src={PokedexTop} alt="Pokedex top half" />
+			<img src={mobileCondition ? PokedexTopMobile : PokedexTop} alt="Pokedex top half" />
 		</div>
 		<div
-			class="absolute inset-0 m-auto flex items-center justify-center z-20 select-none"
+			class="absolute inset-0 flex items-center justify-center z-20 select-none"
 			transition:fade={{
 				delay: 250,
 				duration: 750,
 				easing: linear
 			}}
 		>
-			<img src={PokedexCenter} alt="Pokedex center part" />
+			<img src={mobileCondition ? PokedexCenterMobile : PokedexCenter} alt="Pokedex center part" />
 		</div>
 		<div
-			class="absolute inset-0 flex items-end justify-center -bottom-24 z-40 select-none"
+			class={`absolute inset-0 flex justify-center z-40 select-none ${mobileCondition ? 'm-auto items-center' : '-bottom-24 items-end'}`}
 			transition:fly={{
 				delay: 700,
 				duration: 3000,
@@ -73,7 +86,7 @@
 				opacity: 100
 			}}
 		>
-			<img src={PokedexBottom} alt="Pokedex bottom half" />
+			<img src={mobileCondition ? PokedexBottomMobile : PokedexBottom} alt="Pokedex bottom half" />
 		</div>
 		<button
 			class="absolute h-[360px] w-[360px] rounded-full inset-0 m-auto z-50 hover:bg-white hover:opacity-50 duration-1000 transition-all font-PokemonGb text-white"

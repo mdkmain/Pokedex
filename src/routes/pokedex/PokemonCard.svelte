@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { scale } from 'svelte/transition';
+	import { fly, scale } from 'svelte/transition';
 	import { cubicInOut } from 'svelte/easing';
 	import { capitalizeFirstLetter } from '$lib/utils/capitalize';
 
@@ -19,11 +19,6 @@
 				return false;
 			}
 		};
-
-		// let imgNumber = number;
-		// if (number > 1025) {
-		// 	imgNumber = number + 8975;
-		// }
 
 		const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${number}.gif`;
 

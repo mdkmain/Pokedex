@@ -8,3 +8,5 @@ type Pokemon = {
 export const store = writable<Pokemon[]>([]);
 
 export const filteredStore = writable<Pokemon[]>([]);
+
+export const firstLoad = writable(true);
