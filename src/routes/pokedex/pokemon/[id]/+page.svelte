@@ -5,6 +5,7 @@
 	import PokemonStat from './PokemonStat.svelte';
 	import { backgrounds } from '$lib/utils/backgrounds';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	let audio;
 	let showClickMe = false;
 
@@ -62,6 +63,12 @@
 		>
 			<!-- BASIC INFO AREA -->
 			<div class="flex flex-col text-left w-full sm:w-1/4 p-4 bg-black bg-opacity-40">
+				<button
+					on:click={() => {
+						goto('/pokedex');
+					}}
+					class="btn-primary h-12 mb-3 rounded-xl">Back</button
+				>
 				<p class="pokemonText my-2">Pokemon Nr. {pokemon.id}</p>
 				<p class="pokemonText my-2">{pokemonName}</p>
 				<p class="pokemonText my-2">Height: {pokemon.height}</p>
